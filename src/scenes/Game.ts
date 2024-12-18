@@ -18,6 +18,10 @@ export class Game extends Scene
 
         this.background = this.add.image(512, 384, 'background');
         this.background.setAlpha(0.5);
+        this.background.setScale(1.5)
+
+        const image = this.add.image(100, 100, 'flappy.png')
+        image.setScale(1.5)
 
         this.msg_text = this.add.text(512, 384, 'Hello, World!', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
