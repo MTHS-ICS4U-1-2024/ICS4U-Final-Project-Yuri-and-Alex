@@ -20,7 +20,7 @@ export class Game extends Scene
         this.background.setAlpha(0.5);
         this.background.setScale(1.5)
 
-        const image = this.add.image(100, 100, 'flappy.png')
+        let image = this.add.image(100, 100, 'flappy')
         image.setScale(1.5)
 
         this.msg_text = this.add.text(512, 384, 'Hello, World!', {
