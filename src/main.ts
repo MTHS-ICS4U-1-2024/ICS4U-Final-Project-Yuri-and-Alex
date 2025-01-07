@@ -25,6 +25,7 @@ const config: Types.Core.GameConfig = {
         MainGame,
         GameOver
     ]
+    
 };
 
 export default new Game(config);
