@@ -1,10 +1,12 @@
 import { Scene } from 'phaser';
+import Flappy from '../classes/Flappy'
 
 export class Game extends Scene
 {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     msg_text : Phaser.GameObjects.Text;
+    flappy: Flappy
 
     constructor ()
     {
@@ -20,20 +22,15 @@ export class Game extends Scene
         this.background.setAlpha(0.5);
         this.background.setScale(1.5)
 
-        let image = this.add.image(100, 100, 'flappy')
-        image.setScale(1.5)
+        this.flappy = new Flappy(this, 512, 384, 'flappy')
 
-        this.msg_text = this.add.text(512, 384, 'Hello, World!', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
+        this.input.on('pointerdown', () => {
+            this.flappy.flap();
         });
-        this.msg_text.setOrigin(0.5);
+    }
 
-        this.input.once('pointerdown', () => {
-
-            this.scene.start('GameOver');
-
-        });
+    update(time: number, delta: number): void {
+        // Update the Flappy bird with the time delta
+        this.flappy.update(delta);
     }
 }
