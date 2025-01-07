@@ -35,11 +35,14 @@ export class Preloader extends Scene
         this.load.image('logo', 'logo.png');
 
         this.load.image('flappy', 'flappy.png')
-        this.load.on('filecomplete-image-flappy', () => {
-            console.log('Flappy image loaded successfully!');
-        });
 
         this.load.image('gameover', 'gameover.png')
+
+        this.load.image('base', 'base.png')
+
+        this.load.image('pipe', 'pipe.png')
+
+        this.load.image('message', 'startmsg.png')
     }
 
     create ()
