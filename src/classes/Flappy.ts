@@ -12,9 +12,9 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
 
     // Initialize properties
     this.velocityY = 0; // Vertical velocity
-    this.gravity = 500; // Pixels per second squared
-    this.terminalVelocity = 1000; // Max falling speed
-    this.flapStrength = -300; // Upward force
+    this.gravity = 1000; // Pixels per second squared
+    this.terminalVelocity = 2000; // Max falling speed
+    this.flapStrength = -500; // Upward force
   }
 
   // Call this to make the bird flap
