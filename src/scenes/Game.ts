@@ -36,23 +36,24 @@ export class Game extends Scene
         });
     }
 
-    update(delta: number): void {
-        if (this.base) {
+    // temporarily commented out as the code doesnt work
+    update(time: number, delta: number): void {
+        // if (this.base) {
             // move the base to the left
-            this.base.x -= this.baseSpeed * (delta / 1000000);
+            // this.base.x -= this.baseSpeed * (delta / 1000000);
 
             // If the base goes off the left side of the screen, reset its position
-            if (this.base.x < - this.base.width / 2) {
+            // if (this.base.x < - this.base.width / 2) {
                 // Reset position to the right side, no delta time needed for this
-                this.base.x = 512 + this.base.width / 2;
-                console.log('Base reset to the right side');
-            }
+                // this.base.x = 512 + this.base.width / 2;
+                // console.log('Base reset to the right side');
+            // }
 
             // debugging log for the base's position
-            console.log(`Base X position: ${this.base.x}`);
-        } else {
-            console.error('Base object is not initialized!');
-        }
+            // console.log(`Base X position: ${this.base.x}`);
+        // } else {
+            // console.error('Base object is not initialized!');
+        // }
         
         // update the Flappy bird with the time delta
         this.flappy.update(delta);
