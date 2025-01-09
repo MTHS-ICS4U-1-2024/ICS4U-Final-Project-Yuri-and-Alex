@@ -5,6 +5,9 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
   private gravity: number;
   private terminalVelocity: number;
   private flapStrength: number;
+  private textures: string[]
+  private currentTextureIndex: number;
+  private textureSwitchTimer: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -19,6 +22,30 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     this.terminalVelocity = 1100;
     // upward force
     this.flapStrength = -400;
+
+    // list of textures (flappy, flappy-up, flappy-down)
+    this.textures = ['flappy', 'flappyup', 'flappydown'];
+    this.currentTextureIndex = 0;
+
+    // timer for texture cycling (every 200ms)
+    this.textureSwitchTimer = 200;
+
+    // start animation cycle
+    scene.time.addEvent({
+      delay: this.textureSwitchTimer, // Set interval to switch textures
+      callback: this.cycleTexture, // This is the function to call
+      callbackScope: this, // Ensure 'this' refers to the current Flappy instance
+      loop: true // Make it loop indefinitely
+    });
+  }
+
+  // Cycle through the bird textures (flappy, flappy-up, flappy-down)
+  private cycleTexture(): void {
+    // Update the texture of the sprite based on the current index
+    this.setTexture(this.textures[this.currentTextureIndex]);
+
+    // Move to the next texture in the array, looping back to the start
+    this.currentTextureIndex = (this.currentTextureIndex + 1) % this.textures.length;
   }
 
   // call this to make the bird flap
