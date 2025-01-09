@@ -27,8 +27,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     this.textures = ['flappy', 'flappyup', 'flappydown'];
     this.currentTextureIndex = 0;
 
-    // every 150ms, the textures cycle
-    this.textureSwitchTimer = 150;
+    // every 100ms, the textures cycle
+    this.textureSwitchTimer = 100;
 
     // start animation cycle
     scene.time.addEvent({
