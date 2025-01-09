@@ -10,36 +10,41 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     super(scene, x, y, texture);
     scene.add.existing(this);
 
-    // Initialize properties
-    this.velocityY = 0; // Vertical velocity
-    this.gravity = 1000; // Pixels per second squared
-    this.terminalVelocity = 2000; // Max falling speed
-    this.flapStrength = -500; // Upward force
+    // initialize properties
+    // vertical velocity
+    this.velocityY = 0;
+    // pixels per second squared
+    this.gravity = 1500;
+    // max falling speed
+    this.terminalVelocity = 1100;
+    // upward force
+    this.flapStrength = -400;
   }
 
-  // Call this to make the bird flap
+  // call this to make the bird flap
   flap(): void {
     this.velocityY = this.flapStrength;
   }
 
-  // Update position and apply gravity
+  // update position and apply gravity
   update(delta: number): void {
-    // Convert delta (time since last frame) to seconds
+    // convert delta (time since last frame) to seconds
     const deltaSeconds = delta / 1000;
 
-    // Apply gravity
+    // apply gravity
     this.velocityY += this.gravity * deltaSeconds;
 
-    // Cap the velocity at terminal velocity
+    // cap velocity at terminal velocity
     this.velocityY = Math.min(this.velocityY, this.terminalVelocity);
 
-    // Update the bird's position
+    // update the bird's position
     this.y += this.velocityY * deltaSeconds;
 
-    // Prevent bird from falling below the screen
+    // prevent bird from falling below the screen
     if (this.y > 600) {
       this.y = 600;
-      this.velocityY = 0; // Reset velocity upon collision with the ground
+      // reset velocity upon collision with the ground
+      this.velocityY = 0;
     }
   }
 }
