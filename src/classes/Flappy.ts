@@ -27,24 +27,26 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     this.textures = ['flappy', 'flappyup', 'flappydown'];
     this.currentTextureIndex = 0;
 
-    // timer for texture cycling (every 200ms)
-    this.textureSwitchTimer = 200;
+    // every 150ms, the textures cycle
+    this.textureSwitchTimer = 150;
 
     // start animation cycle
     scene.time.addEvent({
-      delay: this.textureSwitchTimer, // Set interval to switch textures
-      callback: this.cycleTexture, // This is the function to call
-      callbackScope: this, // Ensure 'this' refers to the current Flappy instance
-      loop: true // Make it loop indefinitely
+      // set interval to switch textures
+      delay: this.textureSwitchTimer,
+      callback: this.cycleTexture,
+      // ensure 'this' refers to the current Flappy instance
+      callbackScope: this,
+      loop: true
     });
   }
 
-  // Cycle through the bird textures (flappy, flappy-up, flappy-down)
+  // cycle through the bird textures (flappy, flappyup, flappydown)
   private cycleTexture(): void {
-    // Update the texture of the sprite based on the current index
+    // update the texture of the sprite based on the current index
     this.setTexture(this.textures[this.currentTextureIndex]);
 
-    // Move to the next texture in the array, looping back to the start
+    // move to the next texture in the array, looping back to the start
     this.currentTextureIndex = (this.currentTextureIndex + 1) % this.textures.length;
   }
 
