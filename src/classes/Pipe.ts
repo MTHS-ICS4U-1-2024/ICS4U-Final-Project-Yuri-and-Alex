@@ -6,24 +6,29 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
   private velocityX: number;
   private gapSize: number;
 
-// scene is to there to be able to generate the sprite. x and y are the sprites coordinates, texture is the sprite image.
+// scene is to there to be able to generate the sprite
+// x and y are the sprites coordinates, texture is the sprite image.
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
     scene.add.existing(this);
 
-    // Initialize properties
-    this.positionX = 0; // Horizontal position
-    this.positionY = 0; // Vertical position
-    this.velocityX = 500; // Horizontal Velocity  
-    this.gapSize = 300; // Size of the gap between pipes
+    // initialize properties
+    // horizontal position
+    this.positionX = 0;
+    // vertical position
+    this.positionY = 0;
+    // horizontal velocity
+    this.velocityX = 500;
+    // size of the gap between pipes
+    this.gapSize = 300;
   }
 
-  // Call this to generate pipes. static so that the creation logic can be handled from within the method. 
+  // call this to generate pipes
   generatepPipe(scene: Phaser.Scene, x: number, y: number, texture: string): Pipe {
     const topPipe = new Pipe(scene, x, y, texture);
     const bottomPipe = new Pipe(scene, x, y + this.gapSize + topPipe.height, texture)
     
-    // Add both pipes to the scene
+    // add both pipes to the scene
     scene.add.existing(bottomPipe);
     scene.add.existing(topPipe);
     
@@ -31,15 +36,15 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
     return bottomPipe
   }
 
-  // Update position and apply gravity
+  // update position and apply gravity
   update(delta: number): void {
-    // Convert delta (time since last frame) to seconds
+    // convert delta (time since last frame) to seconds
     const deltaSeconds = delta / 1000;
 
-    // Update the pipe's position
+    // update the pipe's position
     this.x += this.velocityX * deltaSeconds;
 
-    // Destroy if offscreen
+    // destroy if pipe is offscreen
     if (this.x > 0) {
       this.destroy
     }
