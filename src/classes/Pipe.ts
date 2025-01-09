@@ -18,30 +18,26 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
     this.gapSize = 300; // Size of the gap between pipes
   }
 
-  // Call this to generate pipes. static so that the creation logic can be handled from within the method. 
-  generatepPipe(scene: Phaser.Scene, x: number, y: number, texture: string): Pipe {
+  static generatePipes(scene: Phaser.Scene, x: number, y: number, texture: string): [Pipe, Pipe] {
     const topPipe = new Pipe(scene, x, y, texture);
-    const bottomPipe = new Pipe(scene, x, y + this.gapSize + topPipe.height, texture)
-    
-    // Add both pipes to the scene
-    scene.add.existing(bottomPipe);
+    const bottomPipe = new Pipe(scene, x, y + topPipe.height + topPipe.gapSize, texture);
+
+    // Add pipes to the scene
     scene.add.existing(topPipe);
-    
-    return topPipe
-    return bottomPipe
+    scene.add.existing(bottomPipe);
+
+    return [topPipe, bottomPipe];
   }
 
-  // Update position and apply gravity
   update(delta: number): void {
-    // Convert delta (time since last frame) to seconds
     const deltaSeconds = delta / 1000;
 
-    // Update the pipe's position
+    // Move pipe to the left
     this.x += this.velocityX * deltaSeconds;
 
-    // Destroy if offscreen
-    if (this.x > 0) {
-      this.destroy
+    // Destroy pipe if offscreen
+    if (this.x + this.width < 0) {
+      this.destroy();
     }
   }
 }
