@@ -23,17 +23,15 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
     this.gapSize = 300;
   }
 
-  // call this to generate pipes
-  generatepPipe(scene: Phaser.Scene, x: number, y: number, texture: string): Pipe {
+  static generatePipes(scene: Phaser.Scene, x: number, y: number, texture: string): [Pipe, Pipe] {
     const topPipe = new Pipe(scene, x, y, texture);
-    const bottomPipe = new Pipe(scene, x, y + this.gapSize + topPipe.height, texture)
-    
-    // add both pipes to the scene
-    scene.add.existing(bottomPipe);
+    const bottomPipe = new Pipe(scene, x, y + topPipe.height + topPipe.gapSize, texture);
+
+    // Add pipes to the scene
     scene.add.existing(topPipe);
-    
-    return topPipe
-    return bottomPipe
+    scene.add.existing(bottomPipe);
+
+    return [topPipe, bottomPipe];
   }
 
   // update position and apply gravity

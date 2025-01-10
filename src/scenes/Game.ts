@@ -1,5 +1,7 @@
 import { Scene } from 'phaser';
 import Flappy from '../classes/Flappy'
+import Base from '../classes/Base'
+import Pipe from '../classes/Pipe'
 
 export class Game extends Scene
 {
@@ -7,7 +9,8 @@ export class Game extends Scene
     background: Phaser.GameObjects.Image;
     msg_text : Phaser.GameObjects.Text;
     flappy: Flappy;
-    base: Phaser.GameObjects.Image;
+    base: Base;
+    pipe: Pipe
     baseSpeed: number = 150;
 
     constructor ()
@@ -23,8 +26,12 @@ export class Game extends Scene
         this.background.setScale(1.5)
 
         // creating the ground (base)
-        this.base = this.add.image(512, 700, 'base')
-        this.base.setScale(1.5)
+        this.base = new Base(this, 512, 825, 'base') 
+        this.base.setDisplaySize(512, 165)
+
+        // // creates a pipe
+        // const pipe = Pipe.generatePipes(this, 400, 384, 'pipe')
+        // this.pipe.setScale(1.5)
 
         // creates the flappy bird
         this.flappy = new Flappy(this, 512, 384, 'flappy')
@@ -36,25 +43,12 @@ export class Game extends Scene
         });
     }
 
-    // temporarily commented out as the code doesnt work
+    // Update accepts 2 arguments, so time is needed even if it is never called
     update(time: number, delta: number): void {
-        // if (this.base) {
-            // move the base to the left
-            // this.base.x -= this.baseSpeed * (delta / 1000000);
+        // Update base with delta time
+        //this.base.moveBase(delta)
+        // this.pipe.update
 
-            // If the base goes off the left side of the screen, reset its position
-            // if (this.base.x < - this.base.width / 2) {
-                // Reset position to the right side, no delta time needed for this
-                // this.base.x = 512 + this.base.width / 2;
-                // console.log('Base reset to the right side');
-            // }
-
-            // debugging log for the base's position
-            // console.log(`Base X position: ${this.base.x}`);
-        // } else {
-            // console.error('Base object is not initialized!');
-        // }
-        
         // update the Flappy bird with the time delta
         this.flappy.update(delta);
     }
