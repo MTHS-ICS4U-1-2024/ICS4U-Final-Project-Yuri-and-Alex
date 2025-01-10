@@ -33,6 +33,8 @@ export class Preloader extends Scene
         this.load.setPath('assets');
         this.load.image('logo', 'logo.png');
         this.load.image('flappy', 'flappy.png')
+        this.load.image('flappydown', 'flappy-down.png')
+        this.load.image('flappyup', 'flappy-up.png')
         this.load.image('gameover', 'gameover.png')
         this.load.image('base', 'base.png')
         this.load.image('pipe', 'pipe.png')
