@@ -10,6 +10,7 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
   private textureSwitchTimer: number;
   private isFlapping: boolean;
   private falling: boolean;
+  private floatTime: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -51,7 +52,7 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
       loop: true
     });
 
-    // listen for the 'flap' event on user input
+    // listen for 'flap' on user input
     scene.input.on('pointerdown', this.flap, this);
   }
 
@@ -114,7 +115,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
 
   // add floating effect when idle (not flapping)
   if (!this.isFlapping) {
-    this.floatTime += deltaSeconds * 3;
+    this.floatTime += deltaSeconds * 4;
     this.y += Math.sin(this.floatTime) * 0.5;
   }
+}
 }
