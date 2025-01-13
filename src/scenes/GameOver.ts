@@ -2,30 +2,29 @@ import { Scene } from 'phaser';
 
 export class GameOver extends Scene
 {
-    camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
-    gameover_text : Phaser.GameObjects.Text;
+    restart: Phaser.GameObjects.Image;
+    gameover: Phaser.GameObjects.Image;
 
     constructor ()
     {
         super('GameOver');
     }
 
-    create ()
-    {
-        this.camera = this.cameras.main
-        this.camera.setBackgroundColor(0xff0000);
+    create () {
 
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+        this.gameover = this.add.image(512, 250, 'gameover');
+        this.gameover.setScale(1.5);
 
-        let gameover = this.add.image(512, 384, 'gameover');
-        gameover.setScale(1.5)
+        this.restart = this.add.image(512, 400, 'playbutton');
+        this.restart.setScale(2);
 
-        this.input.once('pointerdown', () => {
+        // enable interactive mode on the restart button
+        this.restart.setInteractive();
 
+        // listen for pointerdown event only on the restart button
+        this.restart.on('pointerdown', () => {
             this.scene.start('MainMenu');
-
         });
     }
 }
