@@ -8,6 +8,9 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
   private textures: string[]
   private currentTextureIndex: number;
   private textureSwitchTimer: number;
+  private isFlapping: boolean;
+  private falling: boolean;
+  private floatTime: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -22,6 +25,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     this.terminalVelocity = 1100;
     // upward force
     this.flapStrength = -400;
+    // floats when idle
+    this.floatTime = 0;
 
     // list of textures (flappy, flappy-up, flappy-down)
     this.textures = ['flappy', 'flappyup', 'flappydown'];
@@ -29,6 +34,13 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
 
     // every 100ms, the textures cycle
     this.textureSwitchTimer = 100;
+
+    // bird is idle initially
+    this.isFlapping = false;
+    this.falling = false;
+
+    // set the bird's initial position to the middle of the screen
+    this.setPosition(512, 360);
 
     // start animation cycle
     scene.time.addEvent({
@@ -39,20 +51,31 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
       callbackScope: this,
       loop: true
     });
+
+    // listen for 'flap' on user input
+    scene.input.on('pointerdown', this.flap, this);
   }
 
   // cycle through the bird textures (flappy, flappyup, flappydown)
   private cycleTexture(): void {
-    // update the texture of the sprite based on the current index
-    this.setTexture(this.textures[this.currentTextureIndex]);
-
+    if (this.isFlapping) {
+      this.setTexture(this.textures[this.currentTextureIndex]);
     // move to the next texture in the array, looping back to the start
-    this.currentTextureIndex = (this.currentTextureIndex + 1) % this.textures.length;
+      this.currentTextureIndex = (this.currentTextureIndex + 1) % this.textures.length;
+    } else {
+      // if bird is idle, sprite should be flappy
+      this.setTexture(this.textures[0]);
+    }
   }
 
-  // call this to make the bird flap
+  // call this to make the bird flap (go up)
   flap(): void {
+    if (!this.falling) {
+      this.falling = true;
+    }
+
     this.velocityY = this.flapStrength;
+    this.isFlapping = true;
   }
 
   // update position and apply gravity
@@ -61,6 +84,7 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     const deltaSeconds = delta / 1000;
 
     // apply gravity
+    if (this.falling) {
     this.velocityY += this.gravity * deltaSeconds;
 
     // cap velocity at terminal velocity
@@ -69,11 +93,30 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     // update the bird's position
     this.y += this.velocityY * deltaSeconds;
 
+    // tilt the bird based on velocity
+    // tilt up when flapping, tilt down when falling
+    if (this.velocityY < 0) {
+      // flapping (tilt up)
+      this.rotation = -Math.min(Math.abs(this.velocityY) / 1000, 2);
+    } else {
+      // falling (tilt down)
+      this.rotation = Math.min(this.velocityY / 1000, 2);
+    }
+  }
+
     // prevent bird from falling below the screen
     if (this.y > 600) {
       this.y = 600;
       // reset velocity upon collision with the ground
       this.velocityY = 0;
+      // stop flapping
+      this.isFlapping = false;
     }
+
+  // add floating effect when idle (not flapping)
+  if (!this.isFlapping) {
+    this.floatTime += deltaSeconds * 4;
+    this.y += Math.sin(this.floatTime) * 0.5;
   }
+}
 }
