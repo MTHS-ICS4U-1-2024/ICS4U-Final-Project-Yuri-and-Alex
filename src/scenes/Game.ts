@@ -8,7 +8,8 @@ export class Game extends Scene {
     background: Phaser.GameObjects.Image;
     msg_text: Phaser.GameObjects.Text;
     flappy: Flappy;
-    base: Base;
+    base1: Base;
+    base2: Base;
     pipes: Pipe[] = []; // Array to store all pipes
     baseSpeed: number = 150;
 
@@ -20,31 +21,44 @@ export class Game extends Scene {
         console.log('Creating game objects...');
 
         // Creates background
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setDisplaySize(576, 1024);
+        this.background = this.add.image(256, 254, 'background');
+        this.background.setDisplaySize(512, 1324);
 
         // Creates the ground (base) remember 825
-        this.base = new Base(this, 512, 700, 'base');
-        this.base.setDisplaySize(576, 165);
+        this.base1 = new Base(this, 128, 700, 'base');
+        this.base1.setDisplaySize(576, 165);
+        this.base2 = new Base(this, 640, 700, 'base');
+        this.base2.setDisplaySize(576, 165);
 
         // Creates a pipe pair and stores them in the pipes array
-        const [topPipe, bottomPipe] = Pipe.generatePipes(this, 700, 0, 'pipe');
-        this.pipes.push(topPipe, bottomPipe);
+        
 
         // Creates the flappy bird
-        this.flappy = new Flappy(this, 512, 384, 'flappy');
+        this.flappy = new Flappy(this, 128, 384, 'flappy');
         this.flappy.setScale(1.5);
 
         // Click to flap
         this.input.on('pointerdown', () => {
             this.flappy.flap();
         });
+
+        // Schedule pipe generation at fixed intervals
+        this.time.addEvent({
+            delay: 2000, // Generate pipes every 2 seconds
+            loop: true,
+            // callback is part of the addEvent configuraiton. Used to specify the method that is called
+            callback: () => {
+                const [topPipe, bottomPipe] = Pipe.generatePipes(this, 700, 0, 'pipe');
+                this.pipes.push(topPipe, bottomPipe);
+            },
+        });
     }
 
     // Update accepts 2 arguments, so time is needed even if it is never called
     update(time: number, delta: number): void {
         // Update base with delta time
-        this.base.moveBase(delta);
+        this.base1.moveBase(delta);
+        this.base2.moveBase(delta);
 
         // Update pipes
         this.pipes.forEach((pipe) => pipe.update(delta));
