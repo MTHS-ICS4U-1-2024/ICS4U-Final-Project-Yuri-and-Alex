@@ -39,6 +39,7 @@ export class Preloader extends Scene
         this.load.image('base', 'base.png')
         this.load.image('pipe', 'pipe.png')
         this.load.image('message', 'startmsg.png')
+        this.load.image('playbutton', 'playbutton.png')
 
         this.load.once('complete', () => {
             console.log('All assets loaded!')
