@@ -34,15 +34,8 @@ export class MainMenu extends Scene
         this.flappy = new Flappy(this, 512, 384, 'flappy');
         this.flappy.setScale(1.5);
 
-        this.input.once('pointerdown', () => {
-            // fade-out transition
-            this.cameras.main.fadeOut(200, 0, 0, 0);
-
-            // start scene once fade is complete
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.start('Game'); // Start the game scene
-            });
-        });
+        this.input.once('pointerdown', () => 
+                this.scene.start('Game'))
     }
 
     // Update accepts 2 arguments, so time is needed even if it is never called
