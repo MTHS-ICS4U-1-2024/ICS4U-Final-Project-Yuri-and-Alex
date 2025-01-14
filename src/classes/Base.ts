@@ -26,7 +26,7 @@ export default class Base extends Phaser.GameObjects.Sprite {
     // Update the base's position
     this.x -= this.velocityX * deltaSeconds;
     
-    if(this.x <= this.width * -1) {
+    if(this.x <= 226) {
       this.x = this.startingX
     }
   }
