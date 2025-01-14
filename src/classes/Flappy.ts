@@ -11,6 +11,7 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
   private isFlapping: boolean;
   private falling: boolean;
   private floatTime: number;
+  private flapSound: Phaser.Sound.BaseSound;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -54,6 +55,9 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
 
     // listen for 'flap' on user input
     scene.input.on('pointerdown', this.flap, this);
+
+    // loading flap sound
+    this.flapSound = scene.sound.add('flap');
   }
 
   // cycle through the bird textures (flappy, flappyup, flappydown)
@@ -76,6 +80,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
 
     this.velocityY = this.flapStrength;
     this.isFlapping = true;
+
+    this.flapSound.play();
   }
 
   // update position and apply gravity

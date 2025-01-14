@@ -29,7 +29,7 @@ export class Preloader extends Scene
 
     preload ()
     {
-        //  Load the assets for the game - Replace with your own assets
+        //  loading assets
         this.load.setPath('assets');
         this.load.image('logo', 'logo.png');
         this.load.image('flappy', 'flappy.png')
@@ -40,6 +40,23 @@ export class Preloader extends Scene
         this.load.image('pipe', 'pipe.png')
         this.load.image('message', 'startmsg.png')
         this.load.image('playbutton', 'playbutton.png')
+        this.load.image('zero', '0.png')
+        this.load.image('one', '1.png');
+        this.load.image('two', '2.png');
+        this.load.image('three', '3.png');
+        this.load.image('four', '4.png');
+        this.load.image('five', '5.png');
+        this.load.image('six', '6.png');
+        this.load.image('seven', '7.png');
+        this.load.image('eight', '8.png');
+        this.load.image('nine', '9.png');
+
+
+        // loading audio
+        this.load.audio('flap', 'flap.ogg')
+        this.load.audio('point', 'point.ogg')
+        this.load.audio('death', 'die.ogg')
+        this.load.audio('hit', 'hit.ogg')
 
         this.load.once('complete', () => {
             console.log('All assets loaded!')
@@ -48,10 +65,7 @@ export class Preloader extends Scene
 
     create ()
     {
-        //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
-        //  For example, you can define global animations here, so we can use them in other scenes.
-
-        //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
+        //  moves to MainMenu
         this.scene.start('MainMenu');
     }
 }
