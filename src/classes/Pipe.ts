@@ -18,9 +18,9 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
     // vertical position
     this.positionY = 0;
     // horizontal velocity
-    this.velocityX = 500;
+    this.velocityX = 300;
     // size of the gap between pipes
-    this.gapSize = 300;
+    this.gapSize = 350;
   }
 
   // Static to be able to handle pipe generation from within the method
