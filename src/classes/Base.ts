@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
 
 export default class Base extends Phaser.GameObjects.Sprite {
-  private positionX: number;
-  private positionY: number;
   private velocityX: number;
   private startingX: number;
 
@@ -12,9 +10,7 @@ export default class Base extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 
     // Initialize properties
-    this.positionX = 0; // Horizontal position
-    this.positionY = 700; // Vertical position
-    this.velocityX = 300; // Horizontal Velocity 
+    this.velocityX = 200; // Horizontal Velocity 
     this.startingX = this.x 
   }
 
