@@ -12,11 +12,13 @@ export class GameOver extends Scene
     }
 
     create () {
+        this.background = this.add.image(256, 254, 'background');
+        this.background.setDisplaySize(512, 1324);
 
-        this.gameover = this.add.image(512, 250, 'gameover');
+        this.gameover = this.add.image(256, 250, 'gameover');
         this.gameover.setScale(1.5);
 
-        this.restart = this.add.image(512, 400, 'playbutton');
+        this.restart = this.add.image(256, 400, 'playbutton');
         this.restart.setScale(2);
 
         // enable interactive mode on the restart button
@@ -24,7 +26,7 @@ export class GameOver extends Scene
 
         // listen for pointerdown event only on the restart button
         this.restart.on('pointerdown', () => {
-            this.scene.start('MainMenu');
+            this.scene.start('Game');
         });
     }
 }
