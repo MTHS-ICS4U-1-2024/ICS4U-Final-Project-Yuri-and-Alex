@@ -5,7 +5,7 @@ import Flappy from '../classes/Flappy';
 export class MainMenu extends Scene
 {
     background: GameObjects.Image;
-    logo: GameObjects.Image;
+    startmsg: GameObjects.Image;
     title: GameObjects.Text;
     base1: Base;
     base2: Base;
@@ -28,14 +28,15 @@ export class MainMenu extends Scene
         this.base2 = new Base(this, 640, 700, 'base');
         this.base2.setDisplaySize(576, 165);
 
-        this.logo = this.add.image(256, 310, 'message');
-        this.logo.setScale(1.5);
+        // message
+        this.startmsg = this.add.image(256, 310, 'message');
+        this.startmsg.setScale(1.5);
 
         this.flappy = new Flappy(this, 512, 384, 'flappy');
         this.flappy.setScale(1.5);
 
-        this.input.once('pointerdown', () => 
-                this.scene.start('Game'))
+        this.input.once('pointerdown', () =>
+                this.scene.start('Game'));
     }
 
     // Update accepts 2 arguments, so time is needed even if it is never called

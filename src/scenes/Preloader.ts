@@ -65,7 +65,7 @@ export class Preloader extends Scene
 
     create ()
     {
-        //  moves to MainMenu
+        //  moves to Game scene
         this.scene.start('MainMenu');
     }
 }
