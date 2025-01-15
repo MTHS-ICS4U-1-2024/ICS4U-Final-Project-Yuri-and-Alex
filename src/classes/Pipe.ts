@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
 
 export default class Pipe extends Phaser.GameObjects.Sprite {
-  private positionX: number;
-  private positionY: number;
+  // Properies for pipes
   private velocityX: number;
   private gapSize: number;
+  protected scored: boolean = false;
+
 
 // scene is to there to be able to generate the sprite
 // x and y are the sprites coordinates, texture is the sprite image.
@@ -13,12 +14,8 @@ export default class Pipe extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 
     // initialize properties
-    // horizontal position
-    this.positionX = 0;
-    // vertical position
-    this.positionY = 0;
     // horizontal velocity
-    this.velocityX = 300;
+    this.velocityX = 200;
     // size of the gap between pipes
     this.gapSize = 350;
   }

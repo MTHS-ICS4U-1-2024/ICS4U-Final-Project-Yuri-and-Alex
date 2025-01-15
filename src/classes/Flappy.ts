@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 export default class Flappy extends Phaser.GameObjects.Sprite {
+  // Properties for flappy bird
   private velocityY: number;
   private gravity: number;
   private terminalVelocity: number;
@@ -77,7 +78,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     if (!this.falling) {
       this.falling = true;
     }
-
+    
+    // set the upward velocity to the flap strength
     this.velocityY = this.flapStrength;
     this.isFlapping = true;
 
