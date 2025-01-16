@@ -14,6 +14,7 @@ export class Game extends Scene {
     score: number = 0;
     scoreDigits: Phaser.GameObjects.Image[]  =[];
     pipeTimer: Phaser.Time.TimerEvent | null = null;
+    highScore: number = 0;
 
     constructor() {
         super('Game');
@@ -127,6 +128,8 @@ export class Game extends Scene {
         }
 
         // transition to game over scene, reset score
+        this.highScore = Math.max(this.highScore, this.score);
+        console.log('High Score:', this.highScore);
         this.score = 0;
         this.scene.start('GameOver');
     }
@@ -161,18 +164,19 @@ export class Game extends Scene {
             // go through every single image 1 by 1
             const scoreImage = this.add.image(xOffset, 16, digit === '0' ? 'zero' :
                 digit === '1' ? 'one' :
-                    digit === '2' ? 'two' :
-                        digit === '3' ? 'three' :
-                            digit === '4' ? 'four' :
-                                digit === '5' ? 'five' :
-                                    digit === '6' ? 'six' :
-                                        digit === '7' ? 'seven' :
-                                            digit === '8' ? 'eight' :
-                                                'nine');
+                digit === '2' ? 'two' :
+                digit === '3' ? 'three' :
+                digit === '4' ? 'four' :
+                digit === '5' ? 'five' :
+                digit === '6' ? 'six' :
+                digit === '7' ? 'seven' :
+                digit === '8' ? 'eight' :
+                'nine');
             // align the image properly (top-left)
             scoreImage.setOrigin(0, 0);
             this.scoreDigits.push(scoreImage);
-            xOffset += scoreImage.width + 5; // Add a small space between digits
+            // add a small space between digits
+            xOffset += scoreImage.width + 5;
         }
     }
 }
