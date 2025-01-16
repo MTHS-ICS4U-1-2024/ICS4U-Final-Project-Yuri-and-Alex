@@ -39,7 +39,7 @@ export class Preloader extends Scene
         this.load.image('base', 'base.png')
         this.load.image('pipe', 'pipe.png')
         this.load.image('message', 'startmsg.png')
-        this.load.image('playbutton', 'playbutton.png')
+        this.load.image('playbutton', 'restart.png')
         this.load.image('zero', '0.png')
         this.load.image('one', '1.png');
         this.load.image('two', '2.png');

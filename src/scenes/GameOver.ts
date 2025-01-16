@@ -15,11 +15,11 @@ export class GameOver extends Scene
         this.background = this.add.image(256, 254, 'background');
         this.background.setDisplaySize(512, 1324);
 
-        this.gameover = this.add.image(256, 250, 'gameover');
+        this.gameover = this.add.image(256, 300, 'gameover');
         this.gameover.setScale(1.5);
 
         this.restart = this.add.image(256, 400, 'playbutton');
-        this.restart.setScale(2);
+        this.restart.setScale(0.3);
 
         // enable interactive mode on the restart button
         this.restart.setInteractive();
