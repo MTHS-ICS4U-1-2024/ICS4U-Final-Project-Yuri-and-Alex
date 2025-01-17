@@ -124,7 +124,8 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     // prevent the bird from going above the screen
     if (this.y < 0) {
       this.y = 0;
-      this.velocityY = 0; 
+      this.velocityY = 0;
+    }
 
   // add floating effect when idle (not flapping)
   if (!this.isFlapping) {
