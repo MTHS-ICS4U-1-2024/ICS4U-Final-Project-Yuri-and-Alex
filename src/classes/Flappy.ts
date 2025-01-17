@@ -26,7 +26,7 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
     // max falling speed
     this.terminalVelocity = 1100;
     // upward force
-    this.flapStrength = -450;
+    this.flapStrength = -475;
     // floats when idle
     this.floatTime = 0;
 
@@ -119,6 +119,12 @@ export default class Flappy extends Phaser.GameObjects.Sprite {
       this.velocityY = 0;
       // stop flapping
       this.isFlapping = false;
+    }
+
+    // prevent the bird from going above the screen
+    if (this.y < 0) {
+      this.y = 0;
+      this.velocityY = 0;
     }
 
   // add floating effect when idle (not flapping)

@@ -7,8 +7,7 @@ export class MainMenu extends Scene
     background: GameObjects.Image;
     startmsg: GameObjects.Image;
     title: GameObjects.Text;
-    base1: Base;
-    base2: Base;
+    base: Base;
     flappy: Flappy;
 
     constructor ()
@@ -22,11 +21,10 @@ export class MainMenu extends Scene
         this.background = this.add.image(256, 254, 'background');
         this.background.setDisplaySize(512, 1324);
 
-        // Creates the ground (base) remember 825
-        this.base1 = new Base(this, 128, 700, 'base');
-        this.base1.setDisplaySize(576, 165);
-        this.base2 = new Base(this, 640, 700, 'base');
-        this.base2.setDisplaySize(576, 165);
+        // creates the ground (base) remember 825
+        this.base = new Base(this, 512, 700, 'base');
+        this.base.setDisplaySize(1024, 165);
+        this.base.setDepth(1)
 
         // message
         this.startmsg = this.add.image(256, 310, 'message');
@@ -41,6 +39,9 @@ export class MainMenu extends Scene
 
     // Update accepts 2 arguments, so time is needed even if it is never called
     update(time: number, delta: number): void {
+        // update base with delta time
+        this.base.moveBase(delta);
+
         // Update the flappy bird with the time delta
         this.flappy.update(delta);
     }
