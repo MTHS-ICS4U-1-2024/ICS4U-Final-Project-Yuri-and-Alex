@@ -5,6 +5,7 @@ export class GameOver extends Scene {
     background: Phaser.GameObjects.Image;
     restart: Phaser.GameObjects.Image;
     gameover: Phaser.GameObjects.Image;
+    scoreBg: Phaser.GameObjects.Image;
     base: Base;
     highScoreDigits: Phaser.GameObjects.Image[] = [];
     scoreDigits: Phaser.GameObjects.Image[] = [];
@@ -13,7 +14,10 @@ export class GameOver extends Scene {
         super('GameOver');
     }
 
-    create() {
+    create(data: { score: number; highScore: number }) {
+        // Extract score and highScore from the passed data
+        const { score, highScore } = data;
+
         // Create background
         this.background = this.add.image(256, 254, 'background');
         this.background.setDisplaySize(512, 1324);
@@ -24,17 +28,17 @@ export class GameOver extends Scene {
         this.base.setDepth(1);
 
         // Add "Game Over" text and move it up a little
-        this.gameover = this.add.image(256, 150, 'gameover'); // Adjusted position
+        this.gameover = this.add.image(256, 120, 'gameover'); // Adjusted position
         this.gameover.setScale(1.5);
 
-        // Access the scores from the Game scene
-        const gameScene = this.scene.get('Game');
-        const highScore = gameScene ? gameScene.highScore : 0;
-        const score = gameScene ? gameScene.score : 0;
+        // Create score background (behind highscore and score)
+        this.scoreBg = this.add.image(256, 300, 'scorebg'); // Positioned between highscore and score
+        this.scoreBg.setScale(2.5); // Scale it to fit both scores
+        this.scoreBg.setDepth(-1); // Ensure it's behind the text and numbers
 
         // Display the high score and regular score
-        this.displayScore("Highscore", highScore, 250);
-        this.displayScore("Score", score, 350);
+        this.displayScore('Highscore', highScore, 250);
+        this.displayScore('Score', score, 350);
 
         // Add restart button below the scores
         this.restart = this.add.image(256, 500, 'playbutton'); // Adjusted position
@@ -49,16 +53,15 @@ export class GameOver extends Scene {
 
     private displayScore(label: string, score: number, yPosition: number): void {
         // Add the label text above the score
-        const labelText = this.add.text(256, yPosition - 30, label.toUpperCase(), {
-            fontFamily: '"Press Start 2P", sans-serif',
-            fontSize: '32px',
+        this.add.text(256, yPosition - 30, label, {
+            font: '32px PixelFont', // Ensure PixelFont is preloaded
             color: '#ff914d',
             fontStyle: 'bold',
-        });
-        labelText.setOrigin(0.5, 0.5); // Center the text
+            align: 'center',
+        }).setOrigin(0.5, 0.5); // Center-align text
 
-        // Clear any existing score digits (for reuse if necessary)
-        if (label === "Highscore") {
+        // Clear any existing score digits
+        if (label === 'Highscore') {
             this.highScoreDigits.forEach((digit) => digit.destroy());
             this.highScoreDigits = [];
         } else {
@@ -88,7 +91,7 @@ export class GameOver extends Scene {
             );
 
             digitImage.setOrigin(0.5, 0.5); // Center the digits
-            if (label === "Highscore") {
+            if (label === 'Highscore') {
                 this.highScoreDigits.push(digitImage);
             } else {
                 this.scoreDigits.push(digitImage);
