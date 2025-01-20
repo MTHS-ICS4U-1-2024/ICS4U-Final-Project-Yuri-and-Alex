@@ -110,29 +110,36 @@ export class Game extends Scene {
     // handle game over logic
     private gameOver(): void {
         console.log('Game Over!');
-        // play death sounds
+        // Play death sounds
         this.sound.play('hit');
         this.sound.play('death');
-
-        // stop scene
+    
+        // Stop the game scene
         this.scene.stop('Game');
-
-        // destroy all pipes
+    
+        // Destroy all pipes
         this.pipes.forEach((pipe) => pipe.destroy());
         this.pipes = [];
-
-        // stop generation timer
+    
+        // Stop the generation timer
         if (this.pipeTimer) {
             this.pipeTimer.remove();
             this.pipeTimer = null;
         }
-
-        // transition to game over scene, reset score
+    
+        // Calculate the high score
         this.highScore = Math.max(this.highScore, this.score);
-        console.log('High Score:', this.highScore);
+    
+        // Transition to the GameOver scene, passing score and highScore as data
+        this.scene.start('GameOver', {
+            score: this.score,
+            highScore: this.highScore,
+        });
+    
+        // Reset the score
         this.score = 0;
-        this.scene.start('GameOver');
     }
+    
 
     // check if the flappy bird has passed a pipe (for scoring)
     private checkScore(): void {

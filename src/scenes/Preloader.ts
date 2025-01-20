@@ -50,6 +50,7 @@ export class Preloader extends Scene
         this.load.image('seven', '7.png');
         this.load.image('eight', '8.png');
         this.load.image('nine', '9.png');
+        this.load.image('scoreBg', 'scorebg.png')
 
 
         // loading audio
