@@ -1,4 +1,4 @@
-# <img src="flappy_logo.png" scale="0.5">
+# Flappy Bird
 
 ### This is a recreation of the iconic Flappy Bird Game in Phaser 3.
 Go through endless waves of pipes and see how far you can get!
