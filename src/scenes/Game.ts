@@ -166,19 +166,11 @@ export class Game extends Scene {
 
         // position the digits horizontally, each digit is an image
         let xOffset = 16;
+        const digitTextures = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
         for (let i = 0; i < scoreString.length; i++) {
             const digit = scoreString[i];
             // go through every single image 1 by 1
-            const scoreImage = this.add.image(xOffset, 16, digit === '0' ? 'zero' :
-                digit === '1' ? 'one' :
-                digit === '2' ? 'two' :
-                digit === '3' ? 'three' :
-                digit === '4' ? 'four' :
-                digit === '5' ? 'five' :
-                digit === '6' ? 'six' :
-                digit === '7' ? 'seven' :
-                digit === '8' ? 'eight' :
-                'nine');
+            const scoreImage = this.add.image(xOffset, 16, digitTextures[parseInt(digit)]);
             // align the image properly (top-left)
             scoreImage.setOrigin(0, 0);
             this.scoreDigits.push(scoreImage);
