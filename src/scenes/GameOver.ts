@@ -54,7 +54,7 @@ export class GameOver extends Scene {
     private displayScore(label: string, score: number, yPosition: number): void {
         // Add the label text above the score
         this.add.text(256, yPosition - 30, label, {
-            font: '32px PixelFont', // Ensure PixelFont is preloaded
+            fontSize: '32px', 
             color: '#ff914d',
             fontStyle: 'bold',
             align: 'center',
